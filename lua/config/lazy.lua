@@ -39,5 +39,4 @@ require("lazy").setup({
 
 require("config.keymaps")
 
---pa ver teclasmix
-vim.cmd("ShowkeysToggle")
+
