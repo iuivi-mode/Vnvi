@@ -15,6 +15,8 @@ return {
 		-- Allows extra capabilities provided by blink.cmp
 		"saghen/blink.cmp",
 	},
+
+	
 	config = function()
 		-- Brief aside: **What is LSP?**
 		--
@@ -266,7 +268,7 @@ return {
 		local ensure_installed = vim.tbl_keys(servers or {})
 		vim.list_extend(ensure_installed, {
 			"stylua", -- Used to format Lua code
-			"prettierd", --para js
+			--"prettierd", --para js
 			"black", -- para python
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
@@ -280,7 +282,7 @@ return {
 					-- This handles overriding only values explicitly passed
 					-- by the server configuration above. Useful when disabling
 					-- certain features of an LSP (for example, turning off formatting for ts_ls)
-					--server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+					server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
 
 					require("lspconfig")[server_name].setup(server)
 				end,

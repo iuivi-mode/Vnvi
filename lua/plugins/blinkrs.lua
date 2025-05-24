@@ -3,7 +3,11 @@ return {
 	{
 		"saghen/blink.cmp",
 		-- optional: provides snippets for the snippet source
-		dependencies = { "rafamadriz/friendly-snippets" },
+		dependencies = { 
+			"hrsh7th/nvim-cmp", 
+			"rafamadriz/friendly-snippets",
+			"moyiz/blink-emoji.nvim", 
+			"ray-x/cmp-sql" },
 
 		-- use a release tag to download pre-built binaries
 		version = "1.*",
@@ -15,7 +19,7 @@ return {
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
 		opts = {
-			-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
+			-- 'default' (recommende:q::d) for mappings similar to built-in completions (C-y to accept)
 			-- 'super-tab' for mappings similar to vscode (tab to accept)
 			-- 'enter' for enter to accept
 			-- 'none' for no mappings
@@ -36,14 +40,39 @@ return {
 			},
 
 			-- (Default) Only show the documentation popup when manually triggered
-			completion = { documentation = { auto_show = false } },
+			completion = { documentation = { auto_show = true } },
+			signature = { enabled = true },
 
 			-- Default list of enabled providers defined so that you can extend it
 			-- elsewhere in your config, without redefining it, due to `opts_extend`
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer" },
-			},
-
+				default = { "lsp", "path", "snippets", "buffer", "emoji" },
+				providers = {
+					emoji = {
+						module = "blink-emoji",
+						name = "Emoji",
+						score_offset = 15, -- Tune by preference
+						opts = {
+							insert = true, -- Insert emoji (default) or complete its name
+							---@type string|table|fun():table
+							trigger = function()
+								return { ":" }
+							end,
+						}
+					},
+					-- diagraphs = {
+					-- 	name = "sql",
+					-- 	module = "cmp-sql",
+					-- 	score_offset = -3,
+					-- 	},
+					-- 	should_show_items = function()
+					-- 	return vim.tbl_contains(
+					-- -- By default, enabled for all file-types.
+					-- 	{"sql"},
+					-- 	vim.o.filetype
+					-- 	)
+					-- 	end,
+					},							
 			-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
 			-- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
 			-- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
@@ -53,4 +82,4 @@ return {
 		},
 		opts_extend = { "sources.default" },
 	},
-}
+  },}
