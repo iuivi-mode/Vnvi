@@ -1,0 +1,4 @@
+◜◜◜ NVIM CONFIGURATION ◝◝◝◝◝◝◝
+
+
+◟◟◟◟                    
